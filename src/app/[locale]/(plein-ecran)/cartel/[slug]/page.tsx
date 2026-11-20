@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { getArtworkBySlug } from "@/lib/data/artworks";
 import { formatPrice, localized } from "@/lib/format";
+import { artworkImageUrl } from "@/lib/images";
 import { artworkPublicUrl, qrSvg } from "@/lib/qr";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 
@@ -52,7 +53,15 @@ export default async function CartelPage({ params }: Props) {
       {/* A6 = 105 × 148 mm */}
       <article className="flex h-[148mm] w-[105mm] flex-col justify-between bg-canvas p-[9mm] text-ink shadow-xl print:shadow-none">
         <div className="flex flex-col gap-[2mm]">
-          <h1 className="font-serif text-[22pt] leading-tight italic">{localized(l, artwork.title, artwork.title_en)}</h1>
+          {/* Vignette de l'œuvre, pour la reconnaître d'un coup d'œil */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={artworkImageUrl(artwork, "medium")}
+            alt={artwork.image_alt ?? localized(l, artwork.title, artwork.title_en)}
+            className="mb-[3mm] h-[46mm] w-full object-contain object-left"
+            style={{ backgroundColor: "transparent" }}
+          />
+          <h1 className="font-serif text-[20pt] leading-tight italic">{localized(l, artwork.title, artwork.title_en)}</h1>
           <p className="text-[13pt] font-semibold">{artwork.artist.display_name}</p>
           <p className="text-[10pt] leading-snug text-ink-soft">
             {[artwork.year, localized(l, artwork.medium, artwork.medium_en), artwork.dimensions].filter(Boolean).join(" · ")}
@@ -69,7 +78,7 @@ export default async function CartelPage({ params }: Props) {
             <p className="max-w-[48mm] text-[9pt] leading-snug">{t("scan")}</p>
             <Logo onLight className="origin-left scale-75" />
           </div>
-          <div className="size-[34mm] shrink-0 [&_svg]:size-full" dangerouslySetInnerHTML={{ __html: svg }} aria-label={t("qrAlt")} role="img" />
+          <div className="size-[30mm] shrink-0 [&_svg]:size-full" dangerouslySetInnerHTML={{ __html: svg }} aria-label={t("qrAlt")} role="img" />
         </div>
       </article>
     </div>

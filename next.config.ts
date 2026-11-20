@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
   // (cookies). Voir DECISIONS.md.
   cacheComponents: false,
   images: {
+    // Les œuvres sont déjà préparées en WebP (miniature 400 px, moyenne 1600 px,
+    // pleine) à l'import : on les sert directement depuis Supabase Storage,
+    // plus rapide que l'optimiseur Vercel (≈ 0,3 s contre ≈ 1,1 s par image).
+    unoptimized: true,
     remotePatterns: [
       ...(supabaseHost
         ? [{ protocol: "https" as const, hostname: supabaseHost, pathname: "/storage/v1/**" }]
