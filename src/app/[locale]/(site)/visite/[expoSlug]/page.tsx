@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { preload } from "react-dom";
 import { getTranslations } from "next-intl/server";
 import { ComingSoon } from "@/components/ui/coming-soon";
 import { VisitExperience } from "@/components/visit/visit-experience";
@@ -42,12 +41,19 @@ export default async function VisitPage({ params, searchParams }: Props) {
   const stats = await getArtworkStats(ids, profile?.id ?? null);
   const initial = positionFromQuery(visit, { salle: first(query.salle), mur: first(query.mur), oeuvre: first(query.oeuvre) });
 
-  // Les images du mur d'arrivée partent dès la réception du HTML, sans attendre le JavaScript de la visite.
-  for (const artwork of visit.rooms[initial.room]?.walls[initial.wall]?.artworks ?? []) {
-    preload(artworkImageUrl(artwork, "medium"), { as: "image", fetchPriority: "high" });
-  }
+  // Images du mur d'arrivée présentes dans le HTML : le navigateur les télécharge
+  // dès la lecture de la page, sans attendre le JavaScript de la visite, qui les
+  // retrouve ensuite dans son cache (même URL).
+  const firstWall = visit.rooms[initial.room]?.walls[initial.wall]?.artworks ?? [];
 
   return (
+    <>
+      <div hidden aria-hidden="true">
+        {firstWall.map((artwork) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={artwork.id} src={artworkImageUrl(artwork, "medium")} alt="" fetchPriority="high" decoding="async" />
+        ))}
+      </div>
     <VisitExperience
       exhibition={visit}
       initial={initial}
@@ -55,5 +61,6 @@ export default async function VisitPage({ params, searchParams }: Props) {
       rates={rates}
       viewer={profile ? { id: profile.id, role: profile.role } : null}
     />
+    </>
   );
 }
