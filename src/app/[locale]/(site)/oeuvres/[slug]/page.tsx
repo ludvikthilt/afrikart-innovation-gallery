@@ -49,8 +49,9 @@ export default async function ArtworkPage({ params }: Props) {
   const title = localized(locale as Locale, artwork.title, artwork.title_en);
 
   return (
-    <div className="flex flex-1 flex-col md:h-[calc(100dvh-4rem)] md:flex-row">
-      <section aria-label={title} className="relative h-[58svh] w-full md:h-full md:w-[62%]">
+    // md:flex-none : un élément flex-1 n'a pas de hauteur « définie », le h-full des enfants ne se résoudrait pas.
+    <div className="flex flex-1 flex-col md:h-[calc(100svh-4rem)] md:flex-none md:flex-row">
+      <section aria-label={title} className="relative h-[58svh] w-full md:h-[calc(100svh-4rem)] md:w-[62%]">
         <ZoomViewer artwork={artwork} alt={artwork.image_alt ?? title} />
       </section>
       <div className="flex w-full flex-col border-hairline md:w-[38%] md:overflow-y-auto md:border-l">
