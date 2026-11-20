@@ -1,4 +1,6 @@
-# AFRIK'ART INNOVATION GALLERY
+# LE VILLAGE · Art Gallery
+
+Projet né sous le nom de travail « AFRIK'ART INNOVATION GALLERY ». Nom, logo et couleurs se règlent dans `.env`.
 
 Galerie d'art numérique « phygitale » : on visite une exposition comme une vraie galerie (salles, murs, œuvres), puis on contacte les artistes.
 Stack : Next.js 16 (App Router), Supabase (Auth, Postgres + RLS, Storage, Realtime), Tailwind CSS 4, next-intl (FR/EN), Zod.

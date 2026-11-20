@@ -21,8 +21,8 @@ const color = (value: string | undefined, fallback: string): string => {
   return v && HEX.test(v) ? v : fallback;
 };
 
-const name = read(process.env.NEXT_PUBLIC_BRAND_NAME, "AFRIK'ART");
-const subtitle = read(process.env.NEXT_PUBLIC_BRAND_SUBTITLE, "Innovation Gallery");
+const name = read(process.env.NEXT_PUBLIC_BRAND_NAME, "LE VILLAGE");
+const subtitle = read(process.env.NEXT_PUBLIC_BRAND_SUBTITLE, "Art Gallery");
 
 export const brand = {
   name,
@@ -52,12 +52,12 @@ export const brand = {
   ogImageUrl: optional(process.env.NEXT_PUBLIC_BRAND_OG_IMAGE_URL),
 
   colors: {
-    accent: color(process.env.NEXT_PUBLIC_BRAND_ACCENT, "#1F56F5"),
-    accentHover: color(process.env.NEXT_PUBLIC_BRAND_ACCENT_HOVER, "#1745C8"),
-    accent2: color(process.env.NEXT_PUBLIC_BRAND_ACCENT_2, "#FF3D8B"),
-    ink: color(process.env.NEXT_PUBLIC_BRAND_INK, "#0B0C11"),
-    canvasDark: color(process.env.NEXT_PUBLIC_BRAND_CANVAS_DARK, "#0B0C11"),
-    canvasLight: color(process.env.NEXT_PUBLIC_BRAND_CANVAS_LIGHT, "#F6F6F4"),
+    accent: color(process.env.NEXT_PUBLIC_BRAND_ACCENT, "#1F4D2A"),
+    accentHover: color(process.env.NEXT_PUBLIC_BRAND_ACCENT_HOVER, "#14331A"),
+    accent2: color(process.env.NEXT_PUBLIC_BRAND_ACCENT_2, "#C8952F"),
+    ink: color(process.env.NEXT_PUBLIC_BRAND_INK, "#17241A"),
+    canvasDark: color(process.env.NEXT_PUBLIC_BRAND_CANVAS_DARK, "#10231A"),
+    canvasLight: color(process.env.NEXT_PUBLIC_BRAND_CANVAS_LIGHT, "#FBF5E8"),
   },
 
   contact: {

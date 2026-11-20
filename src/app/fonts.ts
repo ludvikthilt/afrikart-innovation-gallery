@@ -1,4 +1,4 @@
-import { Anton, Bodoni_Moda, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
+import { Bodoni_Moda, Cinzel, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 
 // Titres et cartels (catalogue de musée)
 export const bodoni = Bodoni_Moda({
@@ -24,10 +24,10 @@ export const grotesk = Space_Grotesk({
   display: "swap",
 });
 
-// Nom de la galerie dans le logo (grotesque condensée, comme le logo)
-export const anton = Anton({
+// Nom de la galerie et grands titres : capitales classiques, comme le logo Le Village
+export const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-anton",
+  weight: ["600", "700"],
+  variable: "--font-cinzel",
   display: "swap",
 });

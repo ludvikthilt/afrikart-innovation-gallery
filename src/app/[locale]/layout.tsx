@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { brand, brandCssVariables, settings } from "@/config/brand";
 import { routing } from "@/i18n/routing";
 import { PageZoomLock } from "@/components/layout/page-zoom-lock";
-import { anton, bodoni, grotesk, jakarta } from "../fonts";
+import { bodoni, cinzel, grotesk, jakarta } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -55,7 +55,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const t = await getTranslations({ locale, namespace: "common" });
 
   return (
-    <html lang={locale} className={`${bodoni.variable} ${jakarta.variable} ${grotesk.variable} ${anton.variable} h-full antialiased`}>
+    <html lang={locale} className={`${bodoni.variable} ${jakarta.variable} ${grotesk.variable} ${cinzel.variable} h-full antialiased`}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: brandCssVariables }} />
       </head>

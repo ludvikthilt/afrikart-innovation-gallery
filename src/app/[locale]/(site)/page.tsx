@@ -50,12 +50,14 @@ export default async function HallPage({ params }: PageProps<"/[locale]">) {
         <div className="relative mx-auto grid w-full max-w-[1600px] flex-1 gap-8 px-4 pt-28 pb-8 sm:px-8 sm:pt-36 lg:grid-cols-[minmax(320px,26rem)_1fr] lg:items-end lg:gap-14 lg:px-12 lg:pb-14">
           {/* La borne tactile de l'entrée */}
           <div className="flex flex-col items-center lg:items-stretch">
-            <div className="w-full rounded-xl bg-[#0b0c11] p-6 text-white shadow-2xl ring-8 ring-[#d7d8db] sm:p-8">
+            <div className="w-full overflow-hidden rounded-xl bg-[#14331a] text-[#fbf5e8] shadow-2xl ring-8 ring-[#e6dbc2]">
+              <div aria-hidden="true" className="village-band" />
+              <div className="p-6 sm:p-8">
               <p className="label-caps flex items-center gap-2 text-accent-2">
                 <span className="size-1.5 rounded-full bg-accent-2" aria-hidden="true" />
                 {t("currentExhibition")}
               </p>
-              <h1 className="mt-3 font-display text-4xl leading-none tracking-wide uppercase sm:text-5xl">{title}</h1>
+              <h1 className="mt-3 font-display text-4xl leading-tight font-bold sm:text-5xl">{title}</h1>
               <p className="label-caps mt-4 flex items-center gap-2 text-white/80">
                 <CalendarIcon size={14} />
                 {formatDateRange(exhibition.starts_at, exhibition.ends_at, locale)}
@@ -64,14 +66,15 @@ export default async function HallPage({ params }: PageProps<"/[locale]">) {
               <p className="label-caps mt-4 text-white/60">
                 {t("roomsCount", { count: hall.roomsCount })} · {t("worksCount", { count: hall.artworksCount })}
               </p>
-              <Link href={`/visite/${exhibition.slug}`} className="btn btn-primary mt-6 min-h-12 w-full text-sm">
+              <Link href={`/visite/${exhibition.slug}`} className="btn mt-6 min-h-12 w-full bg-accent-2 text-sm text-[#14331a] hover:bg-[#d9a945]">
                 {t("enter")}
                 <ArrowRightIcon size={16} />
               </Link>
               <p className="mt-3 hidden text-center text-xs text-white/60 sm:block">{t("hint")}</p>
+              </div>
             </div>
             {/* Pied de la borne */}
-            <div aria-hidden="true" className="hidden h-24 w-24 bg-gradient-to-b from-[#c9cacd] to-[#e4e5e7] [clip-path:polygon(18%_0,82%_0,100%_100%,0_100%)] lg:block lg:self-center" />
+            <div aria-hidden="true" className="hidden h-24 w-24 bg-gradient-to-b from-[#cbbd9f] to-[#e8dcc2] [clip-path:polygon(18%_0,82%_0,100%_100%,0_100%)] lg:block lg:self-center" />
           </div>
 
           {/* Cimaises : panneaux blancs posés au sol, une œuvre par panneau, en profondeur */}

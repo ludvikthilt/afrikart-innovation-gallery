@@ -33,7 +33,7 @@ export default async function CartelPage({ params }: Props) {
   const svg = await qrSvg(artworkPublicUrl(artwork.slug));
 
   return (
-    <div data-theme="museum" className="flex flex-1 flex-col items-center gap-8 bg-[#e4e5e8] px-4 py-10 print:bg-white print:p-0">
+    <div data-theme="museum" className="flex flex-1 flex-col items-center gap-8 bg-[#efe6d2] px-4 py-10 print:bg-white print:p-0">
       <style>{`@page { size: A6 portrait; margin: 0; } @media print { body { background: #fff; } }`}</style>
 
       <div className="flex flex-wrap items-center justify-center gap-3 print:hidden">

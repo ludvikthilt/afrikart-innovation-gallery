@@ -8,32 +8,32 @@
  */
 :root,
 [data-theme="museum"] {
-  --canvas: var(--brand-canvas-light, #f6f6f4);
-  --surface: #ffffff;
-  --surface-raised: #ecedf0;
-  --ink: var(--brand-ink, #0b0c11);
-  --ink-soft: #3f424c;
-  --ink-muted: #5f6370;
-  --hairline: rgb(11 12 17 / 0.16);
-  --hairline-soft: rgb(11 12 17 / 0.09);
-  --overlay: rgb(246 246 244 / 0.92);
-  --spotlight: rgb(255 255 255 / 0.95);
-  --frame-shadow: 0 18px 40px -16px rgb(11 12 17 / 0.35);
+  --canvas: var(--brand-canvas-light, #fbf5e8);
+  --surface: #fffdf7;
+  --surface-raised: #f1e8d4;
+  --ink: var(--brand-ink, #17241a);
+  --ink-soft: #3c4a3d;
+  --ink-muted: #5c6a5c;
+  --hairline: rgb(31 77 42 / 0.2);
+  --hairline-soft: rgb(31 77 42 / 0.1);
+  --overlay: rgb(251 245 232 / 0.93);
+  --spotlight: rgb(255 252 242 / 0.95);
+  --frame-shadow: 0 18px 40px -16px rgb(23 36 26 / 0.38);
   --danger: #c4262e;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  --canvas: var(--brand-canvas-dark, #0b0c11);
-  --surface: #14151b;
-  --surface-raised: #1d1f27;
+  --canvas: var(--brand-canvas-dark, #10231a);
+  --surface: #162c21;
+  --surface-raised: #1f382b;
   --ink: #f5f5f7;
   --ink-soft: #b4b6bf;
   --ink-muted: #9295a0;
   --hairline: rgb(255 255 255 / 0.18);
   --hairline-soft: rgb(255 255 255 / 0.08);
   --overlay: rgb(11 12 17 / 0.9);
-  --spotlight: rgb(31 86 245 / 0.12);
+  --spotlight: rgb(200 149 47 / 0.14);
   --frame-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.8);
   --danger: #ff8a7a;
   color-scheme: dark;
@@ -60,7 +60,7 @@
   --font-serif: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
   --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
   --font-label: var(--font-grotesk), "Space Grotesk", system-ui, sans-serif;
-  --font-display: var(--font-anton), "Anton", Impact, sans-serif;
+  --font-display: var(--font-cinzel), "Cinzel", Georgia, serif;
 
   --radius-xs: 2px;
   --radius-sm: 4px;
@@ -217,7 +217,7 @@
 /* ---------- Hall d'entrée : la galerie blanche de la photo de référence ---------- */
 @layer components {
   .hall-scene {
-    background: linear-gradient(to bottom, #fbfbfa 0%, var(--canvas) 55%, #e9eaec 100%);
+    background: linear-gradient(to bottom, #fffaf0 0%, var(--canvas) 55%, #efe5d0 100%);
   }
   [data-theme="dark"] .hall-scene {
     background: linear-gradient(to bottom, #15161c 0%, var(--canvas) 60%, #08090c 100%);
@@ -225,12 +225,12 @@
   /* Plafond : lattes fines et bandes lumineuses, en fuite vers le fond */
   .hall-ceiling {
     background:
-      repeating-linear-gradient(90deg, transparent 0 22px, rgb(11 12 17 / 0.06) 22px 24px),
-      repeating-linear-gradient(90deg, transparent 0 160px, #fff 160px 172px),
-      linear-gradient(to bottom, #e6e7e9, #f7f7f6);
+      repeating-linear-gradient(90deg, transparent 0 22px, rgb(31 77 42 / 0.07) 22px 24px),
+      repeating-linear-gradient(90deg, transparent 0 160px, #fffdf6 160px 172px),
+      linear-gradient(to bottom, #e9dfc9, #f8f1e2);
     transform: perspective(500px) rotateX(-48deg);
     transform-origin: top;
-    box-shadow: 0 30px 60px -30px rgb(11 12 17 / 0.25);
+    box-shadow: 0 30px 60px -30px rgb(23 36 26 / 0.25);
   }
   [data-theme="dark"] .hall-ceiling {
     background:
@@ -240,8 +240,8 @@
   /* Sol : béton ciré clair avec reflet */
   .hall-floor {
     background:
-      radial-gradient(ellipse 60% 40% at 50% 0%, rgb(255 255 255 / 0.7), transparent 70%),
-      linear-gradient(to bottom, #dcdde0, #cfd0d3);
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgb(255 252 240 / 0.7), transparent 70%),
+      linear-gradient(to bottom, #e3d7bf, #d6c8ab);
     transform: perspective(600px) rotateX(55deg);
     transform-origin: bottom;
   }
@@ -251,19 +251,28 @@
   /* Cimaise : panneau blanc autoportant, ombre au sol */
   .cimaise {
     position: relative;
-    background: linear-gradient(to bottom, #ffffff, #f4f4f3);
+    background: linear-gradient(to bottom, #fffdf7, #f7f0e1);
     box-shadow:
-      0 1px 0 rgb(11 12 17 / 0.05),
-      18px 30px 40px -24px rgb(11 12 17 / 0.35);
+      0 1px 0 rgb(23 36 26 / 0.05),
+      18px 30px 40px -24px rgb(23 36 26 / 0.35);
   }
   .cimaise::after {
     content: "";
     position: absolute;
     inset: auto 6% -14px 6%;
     height: 14px;
-    background: radial-gradient(ellipse at center, rgb(11 12 17 / 0.22), transparent 70%);
+    background: radial-gradient(ellipse at center, rgb(23 36 26 / 0.22), transparent 70%);
   }
   [data-theme="dark"] .cimaise {
     background: linear-gradient(to bottom, #20222a, #191a21);
   }
+}
+
+/* Liseré à motifs (triangles ocre / vert / or) inspiré du V du logo Le Village */
+@utility village-band {
+  height: 6px;
+  background:
+    linear-gradient(135deg, var(--brand-accent-2, #c8952f) 25%, transparent 25%) 0 0 / 12px 12px,
+    linear-gradient(225deg, #b5531f 25%, transparent 25%) 0 0 / 12px 12px,
+    var(--brand-accent, #1f4d2a);
 }
