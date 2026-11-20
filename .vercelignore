@@ -1,0 +1,20 @@
+# Jamais envoyé à Vercel
+.env.local
+.env*.local
+node_modules
+.next
+supabase/.temp
+supabase/.branches
+# Fichiers de travail (maquettes Stitch, prompts, images d'inspiration)
+design
+*.zip
+/*.jpg
+PROMPT_CLAUDE_CODE.md
+PROMPTS_STITCH.md
+test-results
+playwright-report
+
+# Identifiants (confidentiel)
+ACCES_COMPTES.txt
+ref
+scripts/oeuvres.json

@@ -1,0 +1,2 @@
+Déposez ici vos fichiers de marque (logo.svg, logo-light.svg, og.jpg…)
+puis référencez-les dans .env, ex. NEXT_PUBLIC_BRAND_LOGO_URL="/brand/logo.svg".

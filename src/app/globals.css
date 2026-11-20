@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+/*
+ * Thèmes. Les couleurs de marque (--brand-*) viennent du .env et sont
+ * injectées dans <html> par le layout (voir src/config/brand.ts).
+ *   - « musée blanc » : défaut, galerie claire et aérée (couleurs du logo)
+ *   - « nuit »        : data-theme="dark" sur n'importe quel conteneur
+ */
+:root,
+[data-theme="museum"] {
+  --canvas: var(--brand-canvas-light, #f6f6f4);
+  --surface: #ffffff;
+  --surface-raised: #ecedf0;
+  --ink: var(--brand-ink, #0b0c11);
+  --ink-soft: #3f424c;
+  --ink-muted: #5f6370;
+  --hairline: rgb(11 12 17 / 0.16);
+  --hairline-soft: rgb(11 12 17 / 0.09);
+  --overlay: rgb(246 246 244 / 0.92);
+  --spotlight: rgb(255 255 255 / 0.95);
+  --frame-shadow: 0 18px 40px -16px rgb(11 12 17 / 0.35);
+  --danger: #c4262e;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --canvas: var(--brand-canvas-dark, #0b0c11);
+  --surface: #14151b;
+  --surface-raised: #1d1f27;
+  --ink: #f5f5f7;
+  --ink-soft: #b4b6bf;
+  --ink-muted: #9295a0;
+  --hairline: rgb(255 255 255 / 0.18);
+  --hairline-soft: rgb(255 255 255 / 0.08);
+  --overlay: rgb(11 12 17 / 0.9);
+  --spotlight: rgb(31 86 245 / 0.12);
+  --frame-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.8);
+  --danger: #ff8a7a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-hairline: var(--hairline);
+  --color-hairline-soft: var(--hairline-soft);
+  --color-overlay: var(--overlay);
+  --color-accent: var(--brand-accent, #1f56f5);
+  --color-accent-hover: var(--brand-accent-hover, #1745c8);
+  --color-accent-2: var(--brand-accent-2, #ff3d8b);
+  --color-status-available: #1f8a4c;
+  --color-status-reserved: #b07d0c;
+  --color-status-sold: #6b6e78;
+  --color-danger: var(--danger);
+
+  --font-serif: var(--font-bodoni), "Bodoni Moda", Georgia, serif;
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-label: var(--font-grotesk), "Space Grotesk", system-ui, sans-serif;
+  --font-display: var(--font-anton), "Anton", Impact, sans-serif;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --shadow-frame: var(--frame-shadow);
+}
+
+@utility label-caps {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility cartel-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+}
+
+@utility hairline-frame {
+  border: 1px solid var(--hairline);
+}
+
+@layer base {
+  html {
+    /* Pas de zoom au double-tap ; le pincement est géré par PageZoomLock. */
+    touch-action: manipulation;
+    background: var(--canvas);
+    color: var(--ink);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: var(--brand-accent, #1f56f5);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--brand-accent, #1f56f5);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-label);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition:
+      background-color 150ms,
+      border-color 150ms,
+      color 150ms;
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+  }
+  .btn-secondary {
+    border: 1px solid var(--hairline);
+    color: var(--ink);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+  .btn-ghost {
+    color: var(--ink-soft);
+    padding: 0 0.75rem;
+  }
+  .btn-ghost:hover {
+    color: var(--ink);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.375rem;
+  }
+  .field-label {
+    font-family: var(--font-label);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .field-input {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.625rem 0.875rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--hairline-soft);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 1rem;
+  }
+  .field-input:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
+  .field-input[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+  .field-hint {
+    font-size: 0.8125rem;
+    color: var(--ink-muted);
+  }
+  .field-error {
+    font-size: 0.8125rem;
+    color: var(--color-danger);
+  }
+
+  /* Halo de projecteur au-dessus d'une œuvre accrochée */
+  .spotlight {
+    background: radial-gradient(ellipse at 50% 0%, var(--spotlight) 0%, transparent 70%);
+  }
+}
+
+/* ---------- Hall d'entrée : la galerie blanche de la photo de référence ---------- */
+@layer components {
+  .hall-scene {
+    background: linear-gradient(to bottom, #fbfbfa 0%, var(--canvas) 55%, #e9eaec 100%);
+  }
+  [data-theme="dark"] .hall-scene {
+    background: linear-gradient(to bottom, #15161c 0%, var(--canvas) 60%, #08090c 100%);
+  }
+  /* Plafond : lattes fines et bandes lumineuses, en fuite vers le fond */
+  .hall-ceiling {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 22px, rgb(11 12 17 / 0.06) 22px 24px),
+      repeating-linear-gradient(90deg, transparent 0 160px, #fff 160px 172px),
+      linear-gradient(to bottom, #e6e7e9, #f7f7f6);
+    transform: perspective(500px) rotateX(-48deg);
+    transform-origin: top;
+    box-shadow: 0 30px 60px -30px rgb(11 12 17 / 0.25);
+  }
+  [data-theme="dark"] .hall-ceiling {
+    background:
+      repeating-linear-gradient(90deg, transparent 0 22px, rgb(255 255 255 / 0.05) 22px 24px),
+      linear-gradient(to bottom, #1b1c22, #101116);
+  }
+  /* Sol : béton ciré clair avec reflet */
+  .hall-floor {
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 0%, rgb(255 255 255 / 0.7), transparent 70%),
+      linear-gradient(to bottom, #dcdde0, #cfd0d3);
+    transform: perspective(600px) rotateX(55deg);
+    transform-origin: bottom;
+  }
+  [data-theme="dark"] .hall-floor {
+    background: linear-gradient(to bottom, #15161b, #0b0c10);
+  }
+  /* Cimaise : panneau blanc autoportant, ombre au sol */
+  .cimaise {
+    position: relative;
+    background: linear-gradient(to bottom, #ffffff, #f4f4f3);
+    box-shadow:
+      0 1px 0 rgb(11 12 17 / 0.05),
+      18px 30px 40px -24px rgb(11 12 17 / 0.35);
+  }
+  .cimaise::after {
+    content: "";
+    position: absolute;
+    inset: auto 6% -14px 6%;
+    height: 14px;
+    background: radial-gradient(ellipse at center, rgb(11 12 17 / 0.22), transparent 70%);
+  }
+  [data-theme="dark"] .cimaise {
+    background: linear-gradient(to bottom, #20222a, #191a21);
+  }
+}

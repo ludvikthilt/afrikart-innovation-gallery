@@ -1,0 +1,48 @@
+{
+  "_note": "Titres provisoires (descriptifs) : à remplacer par les vrais titres depuis le studio ou l'admin. Aucune œuvre en vente.",
+  "exhibition": {
+    "slug": "lumieres-d-afrique",
+    "title": "Lumières d'Afrique",
+    "title_en": "Lights of Africa",
+    "curatorial_text": "Sculpture, photographie, dessin et peinture : six artistes, quatre salles, un même regard sur les formes vivantes du continent.",
+    "curatorial_text_en": "Sculpture, photography, drawing and painting: six artists, four rooms, one shared gaze on the continent's living forms.",
+    "starts_at": "2026-11-23",
+    "ends_at": "2026-11-27",
+    "rooms": [
+      { "name": "Sculpture et mémoire", "name_en": "Sculpture and memory" },
+      { "name": "Monuments et paysages", "name_en": "Monuments and landscapes" },
+      { "name": "Couleurs et figures", "name_en": "Colours and figures" },
+      { "name": "Rythmes et parures", "name_en": "Rhythms and adornments" }
+    ]
+  },
+  "artists": [
+    { "key": "mbogue", "display_name": "Cécilia Mbogue", "username": "cecilia-mbogue", "bio": "Dessin, peinture.", "bio_en": "Drawing, painting." },
+    { "key": "toguo", "display_name": "Barthélémy Toguo", "username": "barthelemy-toguo", "bio": "Dessin, peinture.", "bio_en": "Drawing, painting.", "country": "Cameroun" },
+    { "key": "nkot", "display_name": "David Nkot", "username": "david-nkot", "bio": "Peinture, photographie.", "bio_en": "Painting, photography.", "country": "Cameroun" },
+    { "key": "ondoua", "display_name": "Ondoua Julio", "username": "ondoua-julio", "bio": "Peinture.", "bio_en": "Painting." },
+    { "key": "tayou", "display_name": "Pascale Marthine Tayou", "username": "pascale-marthine-tayou", "bio": "Sculpture.", "bio_en": "Sculpture.", "country": "Cameroun" },
+    { "key": "ntobela", "display_name": "Zandile Ntobela", "username": "zandile-ntobela", "bio": null, "bio_en": null }
+  ],
+  "artworks": [
+    { "file": "26469161-ac18-48e0-bd0e-4c01655cfe91.jpg", "artist": "tayou", "title": "Les Quatre Gardiens", "title_en": "The Four Guardians", "medium": "Sculpture, bois", "medium_en": "Sculpture, wood", "room": 1, "wall": "north", "featured": true },
+    { "file": "2efbd32e-5c59-41a4-a43b-bb086bb3d253.jpg", "artist": "tayou", "title": "Siège à cariatide", "title_en": "Caryatid Stool", "medium": "Sculpture, bois", "medium_en": "Sculpture, wood", "room": 1, "wall": "east" },
+    { "file": "87a021f8-3072-40c8-ad04-58ffc9ed0eb3.jpg", "artist": "tayou", "title": "Figure d'ancêtre", "title_en": "Ancestor Figure", "medium": "Sculpture, bois", "medium_en": "Sculpture, wood", "room": 1, "wall": "south" },
+    { "file": "2890615a-0f54-4c38-b9b4-274ad9e581b2.jpg", "artist": "tayou", "title": "Masque dans la lumière", "title_en": "Mask in the Light", "medium": "Sculpture, bois", "medium_en": "Sculpture, wood", "room": 1, "wall": "west" },
+
+    { "file": "7227e840-8bcc-4d06-87e8-03458e86da3f.jpg", "artist": "nkot", "title": "Monument", "title_en": "Monument", "medium": "Photographie", "medium_en": "Photography", "room": 2, "wall": "north", "featured": true },
+    { "file": "4551edeb-2017-4d2b-91d9-788ef4e2fbff.jpg", "artist": "nkot", "title": "Le Cavalier", "title_en": "The Rider", "medium": "Photographie", "medium_en": "Photography", "room": 2, "wall": "east" },
+    { "file": "712aa6ec-ff65-4d5e-a50f-795af6ca1bf2.jpg", "artist": "nkot", "title": "Porteur du monde", "title_en": "World Bearer", "medium": "Photographie", "medium_en": "Photography", "room": 2, "wall": "south" },
+    { "file": "9e10bff2-43a3-4d9a-a522-916361ead4e5.jpg", "artist": "nkot", "title": "Architecture du souvenir", "title_en": "Architecture of Memory", "medium": "Photographie", "medium_en": "Photography", "room": 2, "wall": "west" },
+
+    { "file": "4904f819-3b19-457d-833b-0c1e7b95717f.jpg", "artist": "toguo", "title": "Visage géométrique", "title_en": "Geometric Face", "medium": "Technique mixte", "medium_en": "Mixed media", "room": 3, "wall": "north" },
+    { "file": "8cf85ab5-073b-4d4e-a90b-91cc3b217041.jpg", "artist": "toguo", "title": "Masque graphique", "title_en": "Graphic Mask", "medium": "Dessin", "medium_en": "Drawing", "room": 3, "wall": "north" },
+    { "file": "a9494f35-4127-4830-9ec1-30d13c1d1bbd.jpg", "artist": "ondoua", "title": "Croissant d'or", "title_en": "Golden Crescent", "medium": "Peinture", "medium_en": "Painting", "room": 3, "wall": "east", "featured": true },
+    { "file": "8a11a8e8-eb1d-4ac8-aec2-5d9a2d72a909.jpg", "artist": "mbogue", "title": "Mère nourricière", "title_en": "Nurturing Mother", "medium": "Peinture", "medium_en": "Painting", "room": 3, "wall": "south", "featured": true },
+    { "file": "afdd4548-09e3-4cd9-bb84-0114df8007b5.jpg", "artist": "mbogue", "title": "Portrait", "title_en": "Portrait", "medium": "Peinture", "medium_en": "Painting", "room": 3, "wall": "west" },
+
+    { "file": "1d1e35c5-0080-440d-a2a4-13827258ebde.jpg", "artist": "ntobela", "title": "Cercle des mains", "title_en": "Circle of Hands", "medium": "Photographie", "medium_en": "Photography", "room": 4, "wall": "north" },
+    { "file": "948166b1-6233-4e7f-b42e-87c6ea010a74.jpg", "artist": "ntobela", "title": "Rythmes", "title_en": "Rhythms", "medium": "Photographie", "medium_en": "Photography", "room": 4, "wall": "east" },
+    { "file": "2e99730d-6ded-4f3c-a265-4611a83fdeae.jpg", "artist": "nkot", "title": "Parure de fête", "title_en": "Festive Adornment", "medium": "Photographie", "medium_en": "Photography", "room": 4, "wall": "south" },
+    { "file": "c6868300-9fdd-4028-b755-41de6c54c132.jpg", "artist": "nkot", "title": "Gardiens du royaume", "title_en": "Guardians of the Kingdom", "medium": "Photographie", "medium_en": "Photography", "room": 4, "wall": "west" }
+  ]
+}
