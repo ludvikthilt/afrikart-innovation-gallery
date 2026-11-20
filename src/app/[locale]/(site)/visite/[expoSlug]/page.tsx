@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { preload } from "react-dom";
 import { getTranslations } from "next-intl/server";
 import { ComingSoon } from "@/components/ui/coming-soon";
 import { VisitExperience } from "@/components/visit/visit-experience";
@@ -40,6 +41,11 @@ export default async function VisitPage({ params, searchParams }: Props) {
   const ids = visit.rooms.flatMap((r) => r.walls.flatMap((w) => w.artworks.map((a) => a.id)));
   const stats = await getArtworkStats(ids, profile?.id ?? null);
   const initial = positionFromQuery(visit, { salle: first(query.salle), mur: first(query.mur), oeuvre: first(query.oeuvre) });
+
+  // Les images du mur d'arrivée partent dès la réception du HTML, sans attendre le JavaScript de la visite.
+  for (const artwork of visit.rooms[initial.room]?.walls[initial.wall]?.artworks ?? []) {
+    preload(artworkImageUrl(artwork, "medium"), { as: "image", fetchPriority: "high" });
+  }
 
   return (
     <VisitExperience
