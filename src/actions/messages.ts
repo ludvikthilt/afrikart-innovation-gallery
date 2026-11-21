@@ -39,3 +39,17 @@ export async function markConversationRead(conversationId: string): Promise<void
     .neq("sender_id", userId)
     .is("read_at", null);
 }
+
+/** Messages postérieurs à `after` (rattrapage si le temps réel a décroché). RLS : participants seulement. */
+export async function getMessagesSince(conversationId: string, after: string): Promise<MessageRow[]> {
+  if (!z.uuid().safeParse(conversationId).success || Number.isNaN(Date.parse(after))) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("messages")
+    .select("id, conversation_id, sender_id, body, read_at, created_at")
+    .eq("conversation_id", conversationId)
+    .gt("created_at", after)
+    .order("created_at")
+    .limit(100);
+  return data ?? [];
+}

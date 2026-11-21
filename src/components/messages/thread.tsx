@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useFormatter, useTranslations } from "next-intl";
-import { markConversationRead, sendMessage } from "@/actions/messages";
+import { getMessagesSince, markConversationRead, sendMessage } from "@/actions/messages";
 import { createClient } from "@/lib/supabase/client";
 import type { MessageRow } from "@/types/database";
 
@@ -23,26 +23,56 @@ export function Thread({ conversationId, meId, initial, draft = "" }: Props) {
   const [pending, startTransition] = useTransition();
   const end = useRef<HTMLDivElement>(null);
 
-  // Nouveaux messages reçus en direct ; RLS : seuls les participants les voient.
+  const add = (incoming: MessageRow[]) => {
+    if (incoming.length === 0) return;
+    setMessages((list) => {
+      const known = new Set(list.map((m) => m.id));
+      const fresh = incoming.filter((m) => !known.has(m.id));
+      return fresh.length ? [...list, ...fresh].sort((a, b) => a.created_at.localeCompare(b.created_at)) : list;
+    });
+    if (incoming.some((m) => m.sender_id !== meId)) void markConversationRead(conversationId);
+  };
+  // Références lues par l'abonnement et le rattrapage (mises à jour après chaque rendu).
+  const addRef = useRef(add);
+  const lastAt = useRef(initial.at(-1)?.created_at ?? new Date(0).toISOString());
+  useEffect(() => {
+    addRef.current = add;
+    lastAt.current = messages.at(-1)?.created_at ?? lastAt.current;
+  });
+
+  // Nouveaux messages en direct (Supabase Realtime, RLS : seuls les participants les voient).
+  // Le socket doit porter le jeton de l'utilisateur, d'où la session chargée AVANT l'abonnement.
   useEffect(() => {
     const supabase = createClient();
-    const channel = supabase
-      .channel(`conversation:${conversationId}`)
-      .on(
-        "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
-        (payload) => {
-          const message = payload.new as MessageRow;
-          setMessages((list) => (list.some((m) => m.id === message.id) ? list : [...list, message]));
-          if (message.sender_id !== meId) void markConversationRead(conversationId);
-        },
-      )
-      .subscribe();
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) supabase.realtime.setAuth(data.session.access_token);
+      if (cancelled) return;
+      channel = supabase
+        .channel(`conversation:${conversationId}`)
+        .on(
+          "postgres_changes",
+          { event: "INSERT", schema: "public", table: "messages", filter: `conversation_id=eq.${conversationId}` },
+          (payload) => addRef.current([payload.new as MessageRow]),
+        )
+        .subscribe();
+    })();
     void markConversationRead(conversationId);
+
+    // Filet de sécurité : sur un réseau mobile instable, le temps réel peut décrocher.
+    const poll = setInterval(async () => {
+      if (document.visibilityState !== "visible") return;
+      addRef.current(await getMessagesSince(conversationId, lastAt.current));
+    }, 8000);
+
     return () => {
-      void supabase.removeChannel(channel);
+      cancelled = true;
+      clearInterval(poll);
+      if (channel) void supabase.removeChannel(channel);
     };
-  }, [conversationId, meId]);
+  }, [conversationId]);
 
   useEffect(() => {
     end.current?.scrollIntoView({ block: "end" });
@@ -57,7 +87,7 @@ export function Thread({ conversationId, meId, initial, draft = "" }: Props) {
         return;
       }
       setBody("");
-      setMessages((list) => (list.some((m) => m.id === result.message.id) ? list : [...list, result.message]));
+      add([result.message]);
     });
 
   return (
