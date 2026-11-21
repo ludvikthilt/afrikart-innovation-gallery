@@ -83,13 +83,13 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
       }}
       onContextMenu={(e) => e.preventDefault()}
     >
-      <header className="flex items-center justify-between px-10 pt-8">
+      <header className="flex flex-wrap items-center justify-between gap-3 px-4 pt-4 sm:px-10 sm:pt-8">
         <button type="button" onClick={() => document.documentElement.requestFullscreen?.().catch(() => {})} aria-label={t("fullscreen")}>
           <Logo />
         </button>
-        <div className="text-right">
+        <div className="order-last w-full text-left sm:order-none sm:w-auto sm:text-right">
           <p className="label-caps text-accent">{t("currentExhibition")}</p>
-          <p className="font-serif text-3xl">{localized(locale, exhibition.title, exhibition.title_en)}</p>
+          <p className="font-serif text-2xl sm:text-3xl">{localized(locale, exhibition.title, exhibition.title_en)}</p>
         </div>
         <div className="flex gap-2">
           {(["fr", "en"] as const).map((l) => (
@@ -98,7 +98,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
               type="button"
               onClick={() => router.replace(pathname, { locale: l })}
               aria-pressed={locale === l}
-              className={`label-caps min-h-14 min-w-16 rounded-sm border text-base ${locale === l ? "border-accent text-accent" : "border-hairline-soft text-ink-soft"}`}
+              className={`label-caps min-h-11 min-w-12 rounded-sm border text-sm sm:min-h-14 sm:min-w-16 sm:text-base ${locale === l ? "border-accent text-accent" : "border-hairline-soft text-ink-soft"}`}
             >
               {l.toUpperCase()}
             </button>
@@ -106,7 +106,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
         </div>
       </header>
 
-      <div className="relative flex min-h-0 flex-1 items-center justify-center px-28 lg:px-36">
+      <div className="relative flex min-h-0 flex-1 items-center justify-center px-14 sm:px-28 lg:px-36">
         <AnimatePresence mode="wait">
           {current && (
             <motion.div
@@ -115,7 +115,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.5 }}
-              className="flex h-full w-full flex-col items-center justify-center gap-8 py-6 lg:flex-row lg:gap-16"
+              className="flex h-full w-full flex-col items-center justify-center gap-4 py-4 sm:gap-8 sm:py-6 lg:flex-row lg:gap-16"
             >
               <div className="spotlight flex min-h-0 w-full flex-1 items-center justify-center [container-type:inline-size] lg:h-full">
                 <ArtImage artwork={current} alt={current.image_alt ?? current.title} maxHeight="min(56dvh, 640px)" sizes="60vw" priority />
@@ -123,7 +123,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
               <div className="flex w-full max-w-xl shrink-0 flex-col gap-6 lg:w-[26rem]">
                 <Cartel artwork={current} size="lg" />
                 {localized(locale, current.description, current.description_en) && (
-                  <p className="line-clamp-6 text-lg leading-8 font-light text-ink-soft">
+                  <p className="hidden text-lg leading-8 font-light text-ink-soft sm:line-clamp-6">
                     {localized(locale, current.description, current.description_en)}
                   </p>
                 )}
@@ -138,8 +138,8 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
         <KioskArrow side="right" label={t("next")} onClick={() => move(1)} />
       </div>
 
-      <footer className="flex flex-wrap items-end justify-between gap-8 px-10 pb-8">
-        <nav className="flex gap-4">
+      <footer className="flex flex-wrap items-end justify-between gap-4 px-4 pb-4 sm:gap-8 sm:px-10 sm:pb-8">
+        <nav className="flex flex-wrap gap-2 sm:gap-4">
           <KioskButton active={filter.kind === "all"} onClick={() => choose({ kind: "all" })}>
             {t("allWorks")}
           </KioskButton>
@@ -151,7 +151,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
           </KioskButton>
         </nav>
         {current && (
-          <div className="flex items-center gap-4 rounded-sm bg-white p-3 text-[#1c1c1e]">
+          <div className="hidden items-center gap-4 rounded-sm bg-white p-3 text-[#1c1c1e] md:flex">
             <p className="max-w-44 text-sm leading-snug">{t("continueOnPhone")}</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={`/api/qr/${current.slug}?format=svg`} alt={t("qrAlt")} className="size-28" />
@@ -160,7 +160,7 @@ export function Kiosk({ exhibition, idleMinutes }: { exhibition: VisitExhibition
       </footer>
 
       {panel !== "none" && (
-        <div className="absolute inset-x-10 bottom-36 rounded-sm border border-hairline bg-overlay p-6 backdrop-blur-xl">
+        <div className="absolute inset-x-4 bottom-28 max-h-[50dvh] overflow-y-auto rounded-sm border border-hairline bg-overlay p-4 backdrop-blur-xl sm:inset-x-10 sm:bottom-36 sm:p-6">
           <ul className="flex flex-wrap gap-4">
             {panel === "rooms"
               ? exhibition.rooms.map((r, i) => (
@@ -190,7 +190,7 @@ function KioskButton({ active, onClick, children }: { active: boolean; onClick: 
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`min-h-16 rounded-sm border px-8 font-label text-lg tracking-wide uppercase transition-colors ${
+      className={`min-h-12 rounded-sm border px-4 font-label text-sm tracking-wide uppercase transition-colors sm:min-h-16 sm:px-8 sm:text-lg ${
         active ? "border-accent bg-accent text-white" : "border-hairline text-ink hover:border-accent"
       }`}
     >
@@ -205,11 +205,11 @@ function KioskArrow({ side, label, onClick }: { side: "left" | "right"; label: s
       type="button"
       onClick={onClick}
       aria-label={label}
-      className={`absolute top-1/2 flex size-24 -translate-y-1/2 items-center justify-center rounded-full bg-white/5 text-ink active:bg-white/15 ${
-        side === "left" ? "left-8" : "right-8"
+      className={`absolute top-1/2 flex size-12 -translate-y-1/2 items-center justify-center rounded-full border border-hairline-soft bg-surface/80 text-ink active:bg-surface sm:size-24 ${
+        side === "left" ? "left-1 sm:left-8" : "right-1 sm:right-8"
       }`}
     >
-      {side === "left" ? <ChevronLeftIcon size={44} /> : <ChevronRightIcon size={44} />}
+      {side === "left" ? <ChevronLeftIcon className="size-6 sm:size-11" /> : <ChevronRightIcon className="size-6 sm:size-11" />}
     </button>
   );
 }

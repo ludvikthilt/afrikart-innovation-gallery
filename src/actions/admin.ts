@@ -41,7 +41,7 @@ export async function reviewRequest(formData: FormData): Promise<void> {
 // ------------------------------------------------------------- expositions
 const exhibitionSchema = z
   .object({
-    id: uuid.optional().or(z.literal("").transform(() => undefined)),
+    id: z.preprocess((v) => (v === undefined || v === null || v === "" ? undefined : v), uuid.optional()),
     title: z.string().trim().min(1).max(160),
     title_en: text(160),
     slug: z
@@ -114,7 +114,7 @@ export async function saveRoom(formData: FormData): Promise<void> {
   const ctx = await adminContext();
   const parsed = z
     .object({
-      id: uuid.optional().or(z.literal("").transform(() => undefined)),
+      id: z.preprocess((v) => (v === undefined || v === null || v === "" ? undefined : v), uuid.optional()),
       exhibition_id: uuid,
       name: z.string().trim().min(1).max(120),
       name_en: text(120),

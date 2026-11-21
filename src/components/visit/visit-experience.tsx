@@ -227,7 +227,7 @@ export function VisitExperience({ exhibition, initial, stats, rates, viewer }: P
             exit={{ opacity: 0 }}
             transition={{ duration: reducedMotion ? 0.15 : 0.35, delay: reducedMotion ? 0 : 0.25 }}
           >
-            <div className="relative h-[45%] w-full md:h-full md:w-[62%]">
+            <div className="relative h-[46%] w-full md:h-full md:w-[62%]">
               {mode !== "3d" || zoomOpen ? (
                 <ZoomViewer key={focusedArtwork.id} artwork={focusedArtwork} alt={focusedArtwork.image_alt ?? localized(locale, focusedArtwork.title, focusedArtwork.title_en)} />
               ) : (
@@ -244,7 +244,7 @@ export function VisitExperience({ exhibition, initial, stats, rates, viewer }: P
 
             <motion.aside
               aria-label={t("panel")}
-              className="relative flex h-[55%] w-full flex-col border-t border-hairline bg-overlay backdrop-blur-2xl md:h-full md:w-[38%] md:border-t-0 md:border-l"
+              className="relative flex h-[54%] w-full flex-col border-t border-hairline bg-overlay backdrop-blur-2xl md:h-full md:w-[38%] md:border-t-0 md:border-l"
               initial={wide ? { x: "100%" } : { y: "100%" }}
               animate={{ x: 0, y: 0 }}
               exit={wide ? { x: "100%" } : { y: "100%" }}
@@ -259,11 +259,11 @@ export function VisitExperience({ exhibition, initial, stats, rates, viewer }: P
                   dispatch({ type: "closeFocus" });
                 }}
                 aria-label={t("closeFocus")}
-                className="absolute top-3 right-3 z-10 flex size-11 items-center justify-center rounded-sm text-ink-soft hover:text-ink"
+                className="absolute top-2 right-2 z-10 flex size-11 items-center justify-center rounded-full bg-surface text-ink shadow-sm hover:text-accent"
               >
                 <CloseIcon />
               </button>
-              <div className="flex-1 overflow-y-auto overscroll-contain px-5 pt-6 pb-6 sm:px-8">
+              <div className="flex-1 overflow-y-auto overscroll-contain px-5 pt-4 pb-6 sm:px-8 sm:pt-6">
                 <ArtworkPanel
                   key={focusedArtwork.id}
                   artwork={focusedArtwork}
@@ -274,13 +274,15 @@ export function VisitExperience({ exhibition, initial, stats, rates, viewer }: P
                   eyebrow={t("artworkEyebrow", { room: pos.room + 1, index, total })}
                 />
               </div>
-              <div className="flex items-center justify-between border-t border-hairline-soft px-3 py-2">
+              <div className="flex items-center justify-between border-t border-hairline-soft px-2 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] sm:px-3 sm:py-2">
                 <button type="button" onClick={() => dispatch({ type: "prevArtwork" })} disabled={index <= 1} className="btn btn-ghost min-h-10 disabled:opacity-30">
                   <ChevronLeftIcon size={16} />
-                  {t("prevArtwork")}
+                  <span className="sm:hidden">{t("prevShort")}</span>
+                  <span className="hidden sm:inline">{t("prevArtwork")}</span>
                 </button>
                 <button type="button" onClick={() => dispatch({ type: "nextArtwork" })} disabled={index >= total} className="btn btn-ghost min-h-10 disabled:opacity-30">
-                  {t("nextArtwork")}
+                  <span className="sm:hidden">{t("nextShort")}</span>
+                  <span className="hidden sm:inline">{t("nextArtwork")}</span>
                   <ChevronRightIcon size={16} />
                 </button>
               </div>

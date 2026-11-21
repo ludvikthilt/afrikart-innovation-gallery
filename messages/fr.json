@@ -384,7 +384,9 @@
     "entering": "Ouverture de la salle…",
     "slowHint": "La visite 3D semble lente sur cet appareil.",
     "switchLight": "Visite légère",
-    "spotProgressShort": "Salle {room} · {index}/{total}"
+    "spotProgressShort": "Salle {room} · {index}/{total}",
+    "prevShort": "Précédente",
+    "nextShort": "Suivante"
   },
   "comments": {
     "title": "Commentaires",

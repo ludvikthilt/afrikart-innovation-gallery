@@ -51,7 +51,8 @@ export default async function CartelPage({ params }: Props) {
       </div>
 
       {/* A6 = 105 × 148 mm */}
-      <article className="flex h-[148mm] w-[105mm] flex-col justify-between bg-canvas p-[9mm] text-ink shadow-xl print:shadow-none">
+      {/* Sur téléphone, le cartel A6 (≈ 397 px) est réduit pour tenir dans l'écran ; l'impression reste à 100 %. */}
+      <article className="flex h-[148mm] w-[105mm] flex-col justify-between bg-canvas p-[9mm] text-ink shadow-xl [zoom:0.88] min-[420px]:[zoom:1] print:[zoom:1] print:shadow-none">
         <div className="flex flex-col gap-[2mm]">
           {/* Vignette de l'œuvre, pour la reconnaître d'un coup d'œil */}
           {/* eslint-disable-next-line @next/next/no-img-element */}

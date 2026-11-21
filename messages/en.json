@@ -384,7 +384,9 @@
     "entering": "Opening the room…",
     "slowHint": "The 3D visit seems slow on this device.",
     "switchLight": "Light visit",
-    "spotProgressShort": "Room {room} · {index}/{total}"
+    "spotProgressShort": "Room {room} · {index}/{total}",
+    "prevShort": "Previous",
+    "nextShort": "Next"
   },
   "comments": {
     "title": "Comments",

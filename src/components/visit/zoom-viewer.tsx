@@ -81,11 +81,11 @@ export function ZoomViewer({ artwork, alt }: { artwork: VisitArtwork; alt: strin
   const ratio = artwork.image_width / artwork.image_height;
 
   return (
-    <div data-zoomable className="relative flex h-full w-full flex-col items-center justify-center bg-canvas px-3 pt-3 pb-16 sm:p-4 sm:pb-20 [container-type:size]">
+    <div data-zoomable className="relative flex h-full w-full flex-col items-center justify-center bg-canvas p-3 sm:p-4 sm:pb-20 [container-type:size]">
       <div
         ref={box}
         className="relative touch-none overflow-hidden"
-        style={{ aspectRatio: `${ratio}`, height: `min(100cqh - 4.75rem, calc((100cqw - 1.5rem) / ${ratio.toFixed(4)}))` }}
+        style={{ aspectRatio: `${ratio}`, height: `min(100cqh - 1.5rem, calc((100cqw - 1.5rem) / ${ratio.toFixed(4)}))` }}
         onWheel={onWheel}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -108,7 +108,7 @@ export function ZoomViewer({ artwork, alt }: { artwork: VisitArtwork; alt: strin
         </div>
       </div>
 
-      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 items-center gap-1 rounded-sm border border-hairline bg-surface/90 p-0.5 backdrop-blur sm:bottom-4 sm:p-1">
+      <div className="absolute right-2 bottom-2 flex items-center gap-0.5 rounded-sm border border-hairline bg-surface/90 p-0.5 shadow-sm backdrop-blur sm:right-auto sm:bottom-4 sm:left-1/2 sm:-translate-x-1/2 sm:gap-1 sm:p-1">
         <ZoomButton label={t("zoomIn")} onClick={() => zoomAt(1.5)}>+</ZoomButton>
         <ZoomButton label={t("zoomOut")} onClick={() => zoomAt(1 / 1.5)}>−</ZoomButton>
         <ZoomButton label={t("fullscreen")} onClick={fullscreen}>⤢</ZoomButton>
@@ -124,7 +124,7 @@ function ZoomButton({ label, onClick, children }: { label: string; onClick: () =
       onClick={onClick}
       aria-label={label}
       title={label}
-      className="flex size-10 items-center justify-center rounded-sm font-label text-lg text-ink-soft hover:bg-hairline-soft hover:text-ink"
+      className="flex size-9 items-center justify-center rounded-sm font-label text-lg text-ink-soft hover:bg-hairline-soft hover:text-ink sm:size-10"
     >
       {children}
     </button>

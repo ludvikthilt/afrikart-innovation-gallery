@@ -39,6 +39,9 @@ const intOrNull = (min: number, max: number) =>
       .transform((v) => (v === "" ? null : Number(v)))
       .pipe(z.number().int().min(min).max(max).nullable()),
   );
+// Identifiant facultatif : absent ou vide → null (nouvelle collection sans couverture, œuvre solo…).
+const optionalUuid = z.preprocess((v) => (v === undefined || v === null || v === "" ? null : v), z.uuid().nullable());
+const optionalId = z.preprocess((v) => (v === undefined || v === null || v === "" ? undefined : v), z.uuid().optional());
 const checkbox = z.preprocess((v) => v === "on" || v === "true", z.boolean());
 
 // ------------------------------------------------------------------ images
@@ -66,7 +69,7 @@ const imageSchema = z.object({
 
 const artworkSchema = z
   .object({
-    id: z.uuid().optional().or(z.literal("").transform(() => undefined)),
+    id: optionalId,
     title: z.string().trim().min(1).max(160),
     title_en: text(160),
     description: text(5000),
@@ -76,7 +79,7 @@ const artworkSchema = z
     medium_en: text(160),
     dimensions: text(80),
     image_alt: text(300),
-    collection_id: z.uuid().nullable().or(z.literal("").transform(() => null)),
+    collection_id: optionalUuid,
     for_sale: checkbox,
     // « 15 000 », « 15.000 », « 15,000 FCFA » → 15000 (le franc CFA n'a pas de centimes).
     price: z.preprocess(
@@ -160,13 +163,13 @@ export async function deleteArtwork(formData: FormData): Promise<void> {
 
 // -------------------------------------------------------------- collections
 const collectionSchema = z.object({
-  id: z.uuid().optional().or(z.literal("").transform(() => undefined)),
+  id: optionalId,
   title: z.string().trim().min(1).max(160),
   description: text(5000),
   description_en: text(5000),
   year: intOrNull(1900, 2100),
   is_published: checkbox,
-  cover_artwork_id: z.uuid().nullable().or(z.literal("").transform(() => null)),
+  cover_artwork_id: optionalUuid,
 });
 
 export type CollectionFormState = { ok?: boolean; error?: "invalid" | "generic" | "auth" };

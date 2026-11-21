@@ -123,7 +123,7 @@ export async function moderateComment(formData: FormData): Promise<void> {
 // ---------------------------------------------------------------- contact
 const contactSchema = z.object({
   artistId: uuid,
-  artworkId: uuid.optional().or(z.literal("").transform(() => undefined)),
+  artworkId: z.preprocess((v) => (v === undefined || v === null || v === "" ? undefined : v), uuid.optional()),
   intent: z.enum(["contact", "interest"]),
   from: z.string().optional(),
 });
