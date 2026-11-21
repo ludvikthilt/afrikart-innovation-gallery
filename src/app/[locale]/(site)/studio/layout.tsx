@@ -8,7 +8,7 @@ export default async function StudioLayout({ children }: { children: React.React
   const me = await requireRole(["artist", "admin"], "/studio");
   const [t, unread] = await Promise.all([getTranslations("studio"), countUnread(me.id)]);
   return (
-    <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-[minmax(0,1fr)] gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-8 lg:px-12 lg:py-8">
+    <div className="mx-auto grid w-full max-w-[1600px] flex-1 grid-cols-[minmax(0,1fr)] content-start gap-6 px-4 py-6 sm:px-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-8 lg:px-12 lg:py-8">
       <aside className="flex min-w-0 flex-col gap-4">
         <p className="label-caps hidden text-accent lg:block">{t("title")}</p>
         <SideNav
