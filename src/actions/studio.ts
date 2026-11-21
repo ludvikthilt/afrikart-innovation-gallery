@@ -19,18 +19,26 @@ async function artistContext() {
   return { supabase, userId };
 }
 
+// Un champ absent du formulaire (ex. prix d'une œuvre hors vente) vaut "".
+const blank = (v: unknown) => (v === undefined || v === null ? "" : v);
 const text = (max: number) =>
-  z
-    .string()
-    .trim()
-    .max(max)
-    .transform((v) => v || null);
+  z.preprocess(
+    blank,
+    z
+      .string()
+      .trim()
+      .max(max)
+      .transform((v) => v || null),
+  );
 const intOrNull = (min: number, max: number) =>
-  z
-    .string()
-    .trim()
-    .transform((v) => (v === "" ? null : Number(v)))
-    .pipe(z.number().int().min(min).max(max).nullable());
+  z.preprocess(
+    blank,
+    z
+      .string()
+      .trim()
+      .transform((v) => (v === "" ? null : Number(v)))
+      .pipe(z.number().int().min(min).max(max).nullable()),
+  );
 const checkbox = z.preprocess((v) => v === "on" || v === "true", z.boolean());
 
 // ------------------------------------------------------------------ images
@@ -70,11 +78,14 @@ const artworkSchema = z
     image_alt: text(300),
     collection_id: z.uuid().nullable().or(z.literal("").transform(() => null)),
     for_sale: checkbox,
-    price: z
-      .string()
-      .trim()
-      .transform((v) => (v === "" ? null : Number(v.replace(/[\s ]/g, ""))))
-      .pipe(z.number().min(0).max(1e12).nullable()),
+    // « 15 000 », « 15.000 », « 15,000 FCFA » → 15000 (le franc CFA n'a pas de centimes).
+    price: z.preprocess(
+      blank,
+      z
+        .string()
+        .transform((v) => (v.trim() === "" ? null : Number(v.replace(/[^\d]/g, "")) || null))
+        .pipe(z.number().int().min(0).max(1e12).nullable()),
+    ),
     sale_status: z.enum(["available", "reserved", "sold"]).optional(),
     is_published: checkbox,
     image: z
